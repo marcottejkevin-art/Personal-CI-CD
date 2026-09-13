@@ -7,7 +7,8 @@ ENV PYTHONUNBUFFERED=1
 
 COPY requirements.txt .
 
-RUN pip install --no-cache-dir -r requirements.txt \
+RUN apk upgrade --no-cache \
+    && pip install --no-cache-dir -r requirements.txt \
     && pip uninstall -y pip setuptools
 
 COPY app ./app
