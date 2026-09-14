@@ -73,3 +73,30 @@ jobs:
         if: github.event_name == 'push' && github.ref == 'refs/heads/main'
         run: |
           docker push ghcr.io/${{ github.repository_owner }}/my-cicd-project:${{ github.sha }}
+
+  deploy:
+    name: Deploy to AI-LAB
+    runs-on: [self-hosted, Linux, X64]
+    needs: docker
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+
+    steps:
+      - name: Pull new image
+        run: |
+          docker pull ghcr.io/${{ github.repository_owner }}/my-cicd-project:${{ github.sha }}
+
+      - name: Replace running container
+        run: |
+          docker stop my-cicd-project || true
+          docker rm my-cicd-project || true
+
+          docker run -d \
+            --name my-cicd-project \
+            --restart unless-stopped \
+            -p 8080:8080 \
+            ghcr.io/${{ github.repository_owner }}/my-cicd-project:${{ github.sha }}
+
+      - name: Health check
+        run: |
+          sleep 3
+          curl --fail http://localhost:8080/health
