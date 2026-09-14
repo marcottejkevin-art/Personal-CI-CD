@@ -292,4 +292,3 @@ git push
   -> health check
 ```
 
-The developer does not need to manually build the container or restart the application on AI-LAB.
