@@ -7,7 +7,7 @@ app = Flask(__name__)
 def home():
     return {
         "application": "My CI/CD Demo",
-        "message": "Hello from my CI/CD pipeline!",
+        "message": "Hello from my CI/CD pipeline — automated deployment works!",
         "status": "running"
     }
 
