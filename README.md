@@ -5,7 +5,7 @@ A personal end-to-end CI/CD demonstration built with Flask, Python, Docker, GitH
 The goal of this project is to demonstrate a complete software delivery path:
 
 ```text
-Developer workstation (REACTOR)
+Developer workstation 
         |
         | git push
         v
